@@ -117,7 +117,7 @@
 		var defaults = {
 			target:'',
 			placeid:'',
-			theme:'dark',//light,dark
+			theme:'light',//light,dark
 			numOfWords:20, //max number of words for each review. default:20
 			horizontal:true, //display reviews horizontally
 			autoScroll:false, //automatically scroll the reivew horizontally; horizontal has to be set to true
@@ -126,6 +126,8 @@
 		options = GRW.helpers.extendObj({},defaults,options);
 		
 		var target = document.querySelector(options.target);
+		console.log('target', target)
+		console.log('options', options)
 		if(target)
 		{
 			if(options.placeid !== '' && google)
@@ -210,11 +212,15 @@
 									class:wrapper_class
 								});
 		var reviews = place.reviews;
+		console.log('reviews', reviews)
 		for(var i=0; i<reviews.length;i++){
 			var author = reviews[i].author_name;
 			var rating = reviews[i].rating;
 			var content = reviews[i].text;
-			var review_html = '<div class="'+review_class+'"><div class="grw-author">'+author+'</div><div class="grw-review-rating"><div class="grw-google-star-rating-wrapper"><div class="grw-google-star-rating" style="width:'+Math.round(rating*67/5)+'px"></div></div></div><div class="grw-review-content"><p>'+content+'</p></div></div>';
+			var image = reviews[i].profile_photo_url;
+			
+			var review_html = '<div class="'+review_class+'"><img src='+image+'/><div class="grw-author">'+author+'</div><div class="grw-review-rating"><div class="grw-google-star-rating-wrapper"><div class="grw-google-star-rating" style="width:'+Math.round(rating*67/5)+'px"></div></div></div><div class="grw-review-content"><p>'+content+'</p></div></div>';
+
 			reviews_wrapper.innerHTML +=review_html;
 			
 			var slide_nav_dot = GRW.helpers.createElem('a',{
